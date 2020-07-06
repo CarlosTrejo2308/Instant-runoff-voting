@@ -10,6 +10,11 @@ votos = [
     [1, 3, 2],
 ]
 
+NAMES = [
+    "Red",
+    "Blue",
+    "Green"
+]
 def mapaStarter(candidatos):
     adder = []
     for x in range(candidatos):
@@ -22,13 +27,13 @@ def preliminari(map, candidatos, goal):
     ganador = -1
     for x in range(candidatos):
         obtenido = map[x][0]
-        print("\n", x, "\t\t", obtenido, end = "" )
+        print("\n", NAMES[x], "\t\t", obtenido, end = "" )
         if obtenido > goal:
             ganador = x
             print("*", end = "")
     print("\n---------------------------\n")
     if ganador > -1:
-        print("El ganador es el candidato: ", ganador)
+        print("El ganador es el candidato: ", NAMES[ganador])
     else:
         print("Ningun candidato supero la meta en esta ronda")
 
