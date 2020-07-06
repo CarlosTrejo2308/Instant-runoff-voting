@@ -3,7 +3,7 @@ ballot = [
     [1, 2, 3],
     [0, 0, 1],
     [2, 3, 1],
-    [0, 2, 1],
+    [0, 1, 2],
     [3, 1, 2],
     [2, 1, 3],
     [3, 2, 1],
@@ -15,6 +15,7 @@ NAMES = [
     "Blue",
     "Green"
 ]
+
 def mapStarter(options):
     adder = []
     for x in range(options):
@@ -25,6 +26,7 @@ def preliminary(map, options, goal):
     print("PRELIMINARY RESULTS:")
     print("\nCandidate\tVotes obtained(1)")
     winner = -1
+    loser = [-1, -1] #index - votes
 
     for x in range(options):
         got = map[x][0]
@@ -34,14 +36,20 @@ def preliminary(map, options, goal):
             winner = x
             print("*", end = "")
 
+        if loser[1] == -1:
+            loser = [x, got]
+        elif loser[1] > got:
+            loser = [x, got]
+
 
     print("\n---------------------------\n")
     if winner > -1:
         print("The winner is: ", NAMES[winner])
     else:
         print("No candidate won in this round")
+        print("Eliminating ", NAMES[loser[0]])
 
-    return winner
+    return winner, loser
 
 def count(ballot, options):
     voters = len(ballot)
@@ -62,10 +70,21 @@ def count(ballot, options):
         else:
             map[first] = mapStarter(options)
 
-    ganador = preliminary(map, options, goal)
+    win, loser = preliminary(map, options, goal)
 
-    if ganador > -1:
+    if win > -1:
         return
+
+    noWinner = True
+
+    counter = 0
+
+    while noWinner:
+        #Eliminate loser
+        counter = counter + 1
+        return
+
+        pass
 
 if __name__ == '__main__':
     count(ballot, 3)
