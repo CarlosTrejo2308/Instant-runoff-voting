@@ -55,6 +55,8 @@ def count(votos, candidatos):
 
     ganador = preliminari(mapa, candidatos, goal)
 
+
+
     if ganador > -1:
         return
 
