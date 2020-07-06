@@ -1,4 +1,4 @@
-# Registro de votos
+# Ballot count
 ballot = [
     [1, 2, 3],
     [0, 0, 1],
@@ -10,38 +10,49 @@ ballot = [
     [1, 3, 2],
 ]
 
+#Names of the candidates by position
 NAMES = [
     "Red",
     "Blue",
     "Green"
 ]
 
+# Initializes the counting map for each candidate
 def mapStarter(options):
     adder = []
     for x in range(options):
         adder.append(0)
     return [1, adder]
 
+#Shows the preliminary results of the first count
 def preliminary(map, options, goal):
     print("PRELIMINARY RESULTS:")
     print("\nCandidate\tVotes obtained(1)")
+
+    #Keeping track if there's a clesar winner, and who is the loser in the
+    #first round
     winner = -1
     loser = [-1, -1] #index - votes
 
-    for x in range(options):
-        got = map[x][0]
-        print("\n", NAMES[x], "\t\t", got, end = "" )
+    # For each candidate
+    # check the map to count the voters
+    # and keep track of winners and losers
+    for candidate in range(options):
+        got = map[candidate][0]
+        print("\n", NAMES[candidate], "\t\t", got, end = "" )
 
+        #If there's a clear winner, show it and keep track
         if got > goal:
-            winner = x
+            winner = candidate
             print("*", end = "")
 
+        #Keeping track of loser
         if loser[1] == -1:
-            loser = [x, got]
+            loser = [candidate, got]
         elif loser[1] > got:
-            loser = [x, got]
+            loser = [candidate, got]
 
-
+    #Show conclusions and return
     print("\n---------------------------\n")
     if winner > -1:
         print("The winner is: ", NAMES[winner])
