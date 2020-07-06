@@ -1,5 +1,5 @@
 # Registro de votos
-votos = [
+ballot = [
     [1, 2, 3],
     [0, 0, 1],
     [2, 3, 1],
@@ -15,55 +15,57 @@ NAMES = [
     "Blue",
     "Green"
 ]
-def mapaStarter(candidatos):
+def mapStarter(options):
     adder = []
-    for x in range(candidatos):
+    for x in range(options):
         adder.append(0)
     return [1, adder]
 
-def preliminari(map, candidatos, goal):
-    print("PRELIMINARI RESULTS:")
-    print("\nCandidato\tVotos obtenidos(1)")
-    ganador = -1
-    for x in range(candidatos):
-        obtenido = map[x][0]
-        print("\n", NAMES[x], "\t\t", obtenido, end = "" )
-        if obtenido > goal:
-            ganador = x
+def preliminary(map, options, goal):
+    print("PRELIMINARY RESULTS:")
+    print("\nCandidate\tVotes obtained(1)")
+    winner = -1
+
+    for x in range(options):
+        got = map[x][0]
+        print("\n", NAMES[x], "\t\t", got, end = "" )
+
+        if got > goal:
+            winner = x
             print("*", end = "")
+
+
     print("\n---------------------------\n")
-    if ganador > -1:
-        print("El ganador es el candidato: ", NAMES[ganador])
+    if winner > -1:
+        print("The winner is: ", NAMES[winner])
     else:
-        print("Ningun candidato supero la meta en esta ronda")
+        print("No candidate won in this round")
 
-    return ganador
+    return winner
 
-def count(votos, candidatos):
-    votantes = len(votos)
-    goal = ( votantes / 2 )
+def count(ballot, options):
+    voters = len(ballot)
+    goal = ( voters / 2 )
 
-    print("Votantes: {}\nGoal: {}".format(votantes, goal))
+    print("Voters: {}\nGoal: {}".format(voters, goal))
     print("")
 
-    mapa = {} #voto [segundos] [terceros] [cuartos]
+    map = {} #voto [segundos] [terceros] [cuartos]
 
     # Getting first voters
-    for votacion in votos:
-        primero = votacion.index(1)
-        if primero in mapa:
-            listas = mapa[primero]
-            listas[0] = listas[0] + 1
-            mapa[primero] = listas
+    for vote in ballot:
+        first = vote.index(1)
+        if first in map:
+            lists = map[first]
+            lists[0] = lists[0] + 1
+            map[first] = lists
         else:
-            mapa[primero] = mapaStarter(candidatos)
+            map[first] = mapStarter(options)
 
-    ganador = preliminari(mapa, candidatos, goal)
-
-
+    ganador = preliminary(map, options, goal)
 
     if ganador > -1:
         return
 
 if __name__ == '__main__':
-    count(votos, 3)
+    count(ballot, 3)
