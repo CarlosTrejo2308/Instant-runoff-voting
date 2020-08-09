@@ -63,13 +63,14 @@ def preliminary(map, options, goal):
     return winner, loser
 
 def count(ballot, options):
+    #Showing field of play
     voters = len(ballot)
     goal = ( voters / 2 )
 
     print("Voters: {}\nGoal: {}".format(voters, goal))
     print("")
 
-    map = {} #voto [segundos] [terceros] [cuartos]
+    map = {} # [ votes, [ [2º], [3º], ..., [nº] ] ]
 
     # Getting first voters
     for vote in ballot:
